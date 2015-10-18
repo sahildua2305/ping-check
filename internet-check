@@ -43,6 +43,8 @@ class InternetCheck:
 		process = subprocess.Popen( shlex.split( ping_command ), stdout = subprocess.PIPE )
 		output = process.stdout.read()
 		matches = re.findall(r"time=[0-9]\w+", output)
+		print matches
+		print output
 		if len(matches):
 			# print matches[0].split("=")[-1]
 			return matches[0].split("=")[-1]
@@ -64,6 +66,9 @@ class InternetCheck:
 		## TODO ##
 		# if False is received, play connection_down sound
 		# and change the icon to STOCK_STOP one
+		if ping_response == False:
+			print "s"
+			self.indicator.set_icon( gtk.STOCK_STOP )
 		# otherwise, change to STOCK_ON icon.
 
 	def exit_indicator(self, source):
