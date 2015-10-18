@@ -74,7 +74,7 @@ class InternetCheck:
 			# otherwise, change to STOCK_ON icon.
 			print "up"
 			self.indicator.set_icon( gtk.STOCK_YES )
-			self.indicator.set_label( ping_response + " ms" )
+			self.indicator.set_label( str( ping_response ) + " ms" )
 			print self.indicator.get_icon()
 
 	def exit_indicator(self, source):
