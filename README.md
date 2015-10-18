@@ -1,5 +1,5 @@
 # Internet Check (ping) Indicator
-App Indicator that keeps pinging a particular server and shows the ping status in menu bar so that you never have to manually check for ping status whenever you feel any problem wiht your internet connection
+App Indicator that keeps pinging a particular server and shows the ping status in menu bar so that you never have to manually check for ping status whenever you feel any problem with your internet connection
 
 ###Indicator when connection is up and internet is working.
 ![internet working](screenshots/connection_active.png)
