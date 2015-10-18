@@ -1,0 +1,47 @@
+#!/usr/bin/env python
+from subprocess import check_output
+import appindicator, gtk, requests, signal, time, pynotify, threading, gobject
+
+APPINDICATOR_ID = 'internet-check'
+INTERVAL = 5
+
+class InternetCheck:
+	def __init__(self):
+		# param1: appindicator identifier
+		# param2: appindicator default icon name
+		# param3: appindicator category
+		self.indicator = appindicator.Indicator(APPINDICATOR_ID, gtk.STOCK_STOP, appindicator.CATEGORY_COMMUNICATIONS)
+
+		# activate the status of the indicator
+		self.indicator.set_status( appindicator.STATUS_ACTIVE )
+
+		# trigger to build the menu
+		self.menu = gtk.Menu()
+
+		# create a menu item for restarting the network manager, if triggered by user
+		item_restart = gtk.MenuItem("Restart Network Manager")
+		item_restart.connect( 'activate', self.restart_network_manager )
+		self.menu.append( item_restart )
+
+		# create a menu item for exiting the app
+		item_exit = gtk.MenuItem("Exit")
+		item_exit.connect( 'activate', self.exit_indicator )
+		self.menu.append( item_exit )
+
+		self.menu.show_all()
+		self.indicator.set_menu ( self.menu )
+
+	def restart_network_manager(self, source):
+		check_output ( ["sh", "-c", "sudo service network-manager restart" ] )
+
+	def exit_indicator(self, source):
+		gtk.main_quit()
+
+	def main(self):
+		gtk.main()
+
+if __name__ == "__main__":
+	# For making Ctrl+C do it's default action
+	signal.signal(signal.SIGINT, signal.SIG_DFL)
+	indicator = InternetCheck()
+	indicator.main()
