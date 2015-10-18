@@ -10,7 +10,7 @@ class InternetCheck:
 		# param1: appindicator identifier
 		# param2: appindicator default icon name
 		# param3: appindicator category
-		self.indicator = appindicator.Indicator(APPINDICATOR_ID, gtk.STOCK_STOP, appindicator.CATEGORY_COMMUNICATIONS)
+		self.indicator = appindicator.Indicator(APPINDICATOR_ID, gtk.STOCK_NO, appindicator.CATEGORY_COMMUNICATIONS)
 
 		# activate the status of the indicator
 		self.indicator.set_status( appindicator.STATUS_ACTIVE )
@@ -33,6 +33,7 @@ class InternetCheck:
 		self.ping_timeout = 3
 		self.update_interval = 5
 
+		self.indicator.set_icon( gtk.STOCK_NO )
 		self.update_ui()
 
 		glib.timeout_add_seconds ( self.update_interval, self.update_timeout )
@@ -60,16 +61,23 @@ class InternetCheck:
 		return True
 
 	def update_ui(self):
+		print "before_ping"
 		# ping the host and get the response
 		ping_response = self.ping(ping_host_name)
+		print "after_ping"
 
 		## TODO ##
-		# if False is received, play connection_down sound
-		# and change the icon to STOCK_STOP one
 		if ping_response == False:
-			print "s"
-			self.indicator.set_icon( gtk.STOCK_STOP )
-		# otherwise, change to STOCK_ON icon.
+			# if False is received, play connection_down sound
+			# and change the icon to STOCK_STOP one
+			print "false"
+			self.indicator.set_icon( gtk.STOCK_NO )
+			self.indicator.set_label( "--" )
+		else:
+			# otherwise, change to STOCK_ON icon.
+			print "up"
+			self.indicator.set_icon( gtk.STOCK_YES )
+			self.indicator.set_label( ping_response + " ms" )
 
 	def exit_indicator(self, source):
 		gtk.main_quit()
