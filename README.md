@@ -8,3 +8,4 @@ App Indicator that makes particular sound whenever you lose internet connection 
 ![internet not working](screenshots/connection_inactive.png)
 
 ##Another example of indicator when internet is working.
+![internet working](screenshots/connection_active1.png)
