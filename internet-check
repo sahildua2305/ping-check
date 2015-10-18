@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+
 import subprocess, re, shlex
 import appindicator, glib, gtk, requests, signal, time, pynotify, threading, gobject
 
