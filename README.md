@@ -15,7 +15,7 @@ To run in background:
 ###Indicator when connection is up and internet is working.
 ![internet working](screenshots/connection_active.png)
 
-###Indicator when connection is down or isn't working.
+###Indicator when connection is down or internet isn't working.
 ![internet not working](screenshots/connection_inactive.png)
 
 ###Another example of indicator when internet is working.
