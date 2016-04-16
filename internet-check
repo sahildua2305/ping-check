@@ -104,6 +104,7 @@ class InternetCheck:
 			self.ping_paused = False
 			self.indicator.set_label("Resuming...")
 			source.set_label("Pause")
+			self.show_notification("Internet Check", "Ping checking has been resumed!", 1000)
 			self.update_ui()
 		# click on pause
 		else:
@@ -111,9 +112,10 @@ class InternetCheck:
 			curr_label = self.indicator.get_label()
 			self.indicator.set_label(curr_label + "(Paused)")
 			source.set_label("Resume")
+			self.show_notification("Internet Check", "Ping checking has been paused!", 1000)
 
 
-	def show_notification(self, title="Title", msg="Message", timeout=5000):
+	def show_notification(self, title="Title", msg="Message", timeout=1000):
 		notification = pynotify.Notification(title, msg)
 		notification.set_timeout(timeout)
 		notification.show()
