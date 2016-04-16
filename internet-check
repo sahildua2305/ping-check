@@ -24,7 +24,7 @@ class InternetCheck:
 		self.menu = gtk.Menu()
 
 		# create a menu item for showing about indicator section
-		item_about = gtk.MenuItem("About - Internet Check Indicator using ping")
+		item_about = gtk.MenuItem("Internet Check Indicator")
 		self.menu.append( item_about )
 
 		# create a menu item for pausing and resuming the ping operation
@@ -44,7 +44,7 @@ class InternetCheck:
 		self.update_interval = 5
 		self.ping_paused = False
 
-		self.show_notification("Internet Check", "Now tracking the ping continuously! You can pause the tracking from the menu.")
+		self.show_notification("Internet Check", "Now tracking the ping continuously! You can pause the tracking from the menu.", 3000)
 
 		self.indicator.set_icon( gtk.STOCK_NO )
 		self.indicator.set_label( "--" )
@@ -79,6 +79,10 @@ class InternetCheck:
 
 
 	def update_ui(self):
+		# set the loading text
+		curr_label = self.indicator.get_label()
+		self.indicator.set_label( curr_label + "(Loading)" )
+
 		# ping the host and get the response
 		ping_response = self.ping(ping_host_name)
 
@@ -116,8 +120,8 @@ class InternetCheck:
 
 
 	def exit_indicator(self, source):
-		self.show_notification("Internet Check", "Exiting the app-indicator. Hope I was helpful!")
 		gtk.main_quit()
+		self.show_notification("Internet Check", "Exiting the app-indicator.", 3000)
 
 
 	def main(self):
