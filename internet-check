@@ -23,6 +23,11 @@ class InternetCheck:
 		item_about = gtk.MenuItem("About - Internet Check Indicator using ping")
 		self.menu.append( item_about )
 
+		# create a menu item for pausing and resuming the ping operation
+		item_pause = gtk.MenuItem("Pause")
+		item_pause.connect('activate', self.pause_resume)
+		self.menu.append( item_pause )
+
 		# create a menu item for exiting the app
 		item_exit = gtk.MenuItem("Exit")
 		item_exit.connect( 'activate', self.exit_indicator )
@@ -33,11 +38,13 @@ class InternetCheck:
 
 		self.ping_timeout = 3
 		self.update_interval = 5
+		self.ping_paused = False
 
 		self.indicator.set_icon( gtk.STOCK_NO )
 		self.update_ui()
 
 		glib.timeout_add_seconds ( self.update_interval, self.update_timeout )
+
 
 	def ping(self, host_name):
 		# pings google.com and returns a dot . on success and an X on failure
@@ -51,13 +58,17 @@ class InternetCheck:
 		else: 
 			return False
 		# return check_output( ["sh", "-c", "{ timeout " + str( self.ping_timeout ) + " ping -w 3 -c 2 -i 1 google.com > /dev/null 2>&1 && echo -n . ; } || { echo -n X ; }"] )
+	
 
+	# this function will be called every {update_interval} seconds by glib
 	def update_timeout(self):
-		# this function will be called every {update_interval} seconds by glib
-		self.update_ui()
+		
+		if not self.ping_paused:
+			self.update_ui()
 
 		# returning True so that it doesn't get exited from timeout_add_seconds function
 		return True
+
 
 	def update_ui(self):
 		# ping the host and get the response
@@ -74,11 +85,29 @@ class InternetCheck:
 			self.indicator.set_icon( gtk.STOCK_YES )
 			self.indicator.set_label( str( ping_response ) + " ms" )
 
+
+	def pause_resume(self, source):
+		# click on resume
+		if self.ping_paused:
+			self.ping_paused = False
+			self.indicator.set_label("Resuming...")
+			source.set_label("Pause")
+			self.update_ui()
+		# click on pause
+		else:
+			self.ping_paused = True
+			curr_label = self.indicator.get_label()
+			self.indicator.set_label(curr_label + "(Paused)")
+			source.set_label("Resume")
+
+
 	def exit_indicator(self, source):
 		gtk.main_quit()
 
+
 	def main(self):
 		gtk.main()
+
 
 if __name__ == "__main__":
 	# For making Ctrl+C do it's default action
