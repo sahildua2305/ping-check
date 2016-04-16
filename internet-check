@@ -4,6 +4,7 @@ import subprocess, re, shlex
 import appindicator, glib, gtk, requests, signal, time, pynotify, threading, gobject
 
 APPINDICATOR_ID = 'internet-check'
+PYNOTIFY_ID = 'internet-check'
 ping_host_name = "google.com"
 
 class InternetCheck:
@@ -15,6 +16,9 @@ class InternetCheck:
 
 		# activate the status of the indicator
 		self.indicator.set_status( appindicator.STATUS_ACTIVE )
+
+		# initiate the pynotify using some unique app ID
+		pynotify.init(PYNOTIFY_ID)
 
 		# trigger to build the menu
 		self.menu = gtk.Menu()
@@ -40,7 +44,11 @@ class InternetCheck:
 		self.update_interval = 5
 		self.ping_paused = False
 
+		self.show_notification("Internet Check", "Now tracking the ping continuously! You can pause the tracking from the menu.")
+
 		self.indicator.set_icon( gtk.STOCK_NO )
+		self.indicator.set_label( "--" )
+		
 		self.update_ui()
 
 		glib.timeout_add_seconds ( self.update_interval, self.update_timeout )
@@ -101,7 +109,14 @@ class InternetCheck:
 			source.set_label("Resume")
 
 
+	def show_notification(self, title="Title", msg="Message", timeout=5000):
+		notification = pynotify.Notification(title, msg)
+		notification.set_timeout(timeout)
+		notification.show()
+
+
 	def exit_indicator(self, source):
+		self.show_notification("Internet Check", "Exiting the app-indicator. Hope I was helpful!")
 		gtk.main_quit()
 
 
