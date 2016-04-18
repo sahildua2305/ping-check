@@ -20,8 +20,8 @@ class InternetCheck:
 		# initiate the pynotify using some unique app ID
 		pynotify.init(PYNOTIFY_ID)
 
-		# Build the main menu
-		self.build_main_menu()
+		# Build the menu
+		self.build_menu()
 
 		self.ping_timeout = 3
 		self.update_interval = 5
@@ -34,16 +34,35 @@ class InternetCheck:
 
 		self.update_ui()
 
-		glib.timeout_add_seconds ( self.update_interval, self.update_timeout )
+		self.timeout_ID = glib.timeout_add_seconds(self.update_interval, self.update_timeout)
 
 
-	def build_main_menu(self):
+	def build_menu(self):
 		# trigger to build the menu
 		self.menu = gtk.Menu()
 
 		# create a menu item for showing about indicator section
 		item_about = gtk.MenuItem("Internet Check Indicator")
 		self.menu.append( item_about )
+
+		# create menu item for adjusting the ping refresh time
+		item_refresh_control = gtk.MenuItem("Adjust refresh time")
+		self.menu_refresh_control = gtk.Menu()
+		subitem_1 = gtk.MenuItem("5 seconds")
+		subitem_1.connect('activate', self.adjust_update_interval)
+		self.menu_refresh_control.append(subitem_1)
+		subitem_2 = gtk.MenuItem("10 seconds")
+		subitem_2.connect('activate', self.adjust_update_interval)
+		self.menu_refresh_control.append(subitem_2)
+		subitem_3 = gtk.MenuItem("20 seconds")
+		subitem_3.connect('activate', self.adjust_update_interval)
+		self.menu_refresh_control.append(subitem_3)
+		subitem_4 = gtk.MenuItem("30 seconds")
+		subitem_4.connect('activate', self.adjust_update_interval)
+		self.menu_refresh_control.append(subitem_4)
+		item_refresh_control.set_submenu(self.menu_refresh_control)
+		self.menu_refresh_control.show_all()
+		self.menu.append(item_refresh_control)
 
 		# create a menu item for pausing and resuming the ping operation
 		item_pause = gtk.MenuItem("Pause")
@@ -91,6 +110,8 @@ class InternetCheck:
 		# ping the host and get the response
 		ping_response = self.ping(ping_host_name)
 
+		print ping_response, self.update_interval
+
 		## TODO ##
 		if ping_response == False:
 			# if False is received, play connection_down sound
@@ -118,6 +139,22 @@ class InternetCheck:
 			self.indicator.set_label(curr_label + "(Paused)")
 			source.set_label("Resume")
 			self.show_notification("Internet Check", "Ping checking has been paused!", 1000)
+
+
+	def adjust_update_interval(self, source):
+		# find the value of update_interval represented by the source that's selected
+		new_update_interval = int(source.get_label().split()[0])
+
+		print "refresh time interval changed to -", new_update_interval
+
+		# update the update_interval value with the new one
+		self.update_interval = new_update_interval
+
+		# remove the current timeout_add_seconds event using its event ID
+		glib.source_remove(self.timeout_ID)
+
+		# start a new timeout_add_seconds event and update the timeout_ID for later updates
+		self.timeout_ID = glib.timeout_add_seconds(self.update_interval, self.update_timeout)
 
 
 	def show_notification(self, title="Title", msg="Message", timeout=1000):
