@@ -20,6 +20,24 @@ class InternetCheck:
 		# initiate the pynotify using some unique app ID
 		pynotify.init(PYNOTIFY_ID)
 
+		# Build the main menu
+		self.build_main_menu()
+
+		self.ping_timeout = 3
+		self.update_interval = 5
+		self.ping_paused = False
+
+		self.show_notification("Internet Check", "Now tracking the ping continuously! You can pause the tracking from the menu.", 3000)
+
+		self.indicator.set_icon( gtk.STOCK_NO )
+		self.indicator.set_label( "--" )
+
+		self.update_ui()
+
+		glib.timeout_add_seconds ( self.update_interval, self.update_timeout )
+
+
+	def build_main_menu(self):
 		# trigger to build the menu
 		self.menu = gtk.Menu()
 
@@ -39,19 +57,6 @@ class InternetCheck:
 
 		self.menu.show_all()
 		self.indicator.set_menu ( self.menu )
-
-		self.ping_timeout = 3
-		self.update_interval = 5
-		self.ping_paused = False
-
-		self.show_notification("Internet Check", "Now tracking the ping continuously! You can pause the tracking from the menu.", 3000)
-
-		self.indicator.set_icon( gtk.STOCK_NO )
-		self.indicator.set_label( "--" )
-		
-		self.update_ui()
-
-		glib.timeout_add_seconds ( self.update_interval, self.update_timeout )
 
 
 	def ping(self, host_name):
