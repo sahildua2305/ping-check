@@ -1,7 +1,11 @@
 # Internet Check (ping) Indicator
 App Indicator that keeps pinging a particular server and shows the ping status in menu bar so that you never have to manually check for ping status whenever you feel any problem with your internet connection.
 
-##How to run:
+## Features:
+ * Pause/resume the ping check operation
+ * Adjust the ping check time interval
+
+## How to run:
 
 To run in current terminal:
 
