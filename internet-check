@@ -72,7 +72,6 @@ class InternetCheck:
 		subitem_4.connect('activate', self.adjust_update_interval)
 		self.menu_refresh_control.append(subitem_4)
 		item_refresh_control.set_submenu(self.menu_refresh_control)
-		self.menu_refresh_control.show_all()
 		self.menu.append(item_refresh_control)
 
 		# create a menu item for pausing and resuming the ping operation
