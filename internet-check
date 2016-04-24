@@ -9,12 +9,12 @@ ping_host_name = "google.com"
 
 
 """
-	InternetCheck class - main class implementing the entire app-indicator
+InternetCheck class - main class implementing the entire app-indicator
 """
 class InternetCheck:
 
 	"""
-		Class constructor
+	Class constructor
 	"""
 	def __init__(self):
 		# param1: appindicator identifier
@@ -46,7 +46,7 @@ class InternetCheck:
 
 
 	"""
-		Method to build the entire menu including the submenu as well
+	Method to build the entire menu including the submenu as well
 	"""
 	def build_menu(self):
 		# trigger to build the menu
@@ -90,9 +90,9 @@ class InternetCheck:
 
 
 	"""
-		Main method implementing the ping functionality,
-		returns the ping time if successful ping is observed,
-		and False otherwise
+	Main method implementing the ping functionality,
+	returns the ping time if successful ping is observed,
+	and False otherwise
 	"""
 	def ping(self, host_name):
 		# pings google.com and returns a dot . on success and an X on failure
@@ -109,7 +109,7 @@ class InternetCheck:
 	
 
 	"""
-		Method which will be called every {update_interval} seconds by glib
+	Method which will be called every {update_interval} seconds by glib
 	"""
 	def update_timeout(self):
 		
@@ -121,7 +121,7 @@ class InternetCheck:
 
 
 	"""
-		Method responsible for updating the label and icon of the app-indicator
+	Method responsible for updating the label and icon of the app-indicator
 	"""
 	def update_ui(self):
 		# set the loading text
@@ -146,7 +146,7 @@ class InternetCheck:
 
 
 	"""
-		Method to implement the pause/resume feature
+	Method to implement the pause/resume feature
 	"""
 	def pause_resume(self, source):
 		# click on resume
@@ -166,7 +166,7 @@ class InternetCheck:
 
 
 	"""
-		Method to implement the adjustment of update interval feature
+	Method to implement the adjustment of update interval feature
 	"""
 	def adjust_update_interval(self, source):
 		# find the value of update_interval represented by the source that's selected
@@ -185,7 +185,7 @@ class InternetCheck:
 
 
 	"""
-		Generalized method for showing a notification using pynotify
+	Generalized method for showing a notification using pynotify
 	"""
 	def show_notification(self, title="Title", msg="Message", timeout=1000):
 		notification = pynotify.Notification(title, msg)
@@ -194,7 +194,7 @@ class InternetCheck:
 
 
 	"""
-		Method for exiting the app-indicator
+	Method for exiting the app-indicator
 	"""
 	def exit_indicator(self, source):
 		gtk.main_quit()
@@ -202,7 +202,7 @@ class InternetCheck:
 
 
 	"""
-		Main method for initializing the gtk
+	Main method for initializing the gtk
 	"""
 	def main(self):
 		gtk.main()
