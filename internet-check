@@ -40,12 +40,11 @@ class InternetCheck:
 
 		self.ping_paused = False
 
-		self.show_notification("Internet Check", "Now tracking the ping continuously! You can pause the tracking from the menu.", 3000)
+		self.show_notification("Internet Check", "Now tracking the ping continuously! You can pause the tracking from the menu.")
 		self.indicator.set_icon( gtk.STOCK_NO )
 		self.indicator.set_label( "--" )
 
 		self.update_ui()
-		# self.timeout_ID = glib.timeout_add_seconds(self.update_interval, self.update_timeout)	
 
 
 	"""
@@ -169,7 +168,7 @@ class InternetCheck:
 			self.ping_paused = False
 			self.indicator.set_label("Resuming...")
 			source.set_label("Pause")
-			self.show_notification("Internet Check", "Ping checking has been resumed!", 1000)
+			self.show_notification("Internet Check", "Ping checking has been resumed!")
 			self.update_ui()
 		# click on pause
 		else:
@@ -177,7 +176,7 @@ class InternetCheck:
 			curr_label = self.indicator.get_label()
 			self.indicator.set_label(curr_label + "(Paused)")
 			source.set_label("Resume")
-			self.show_notification("Internet Check", "Ping checking has been paused!", 1000)
+			self.show_notification("Internet Check", "Ping checking has been paused!")
 
 
 	"""
@@ -186,8 +185,6 @@ class InternetCheck:
 	def adjust_update_interval(self, source):
 		# find the value of update_interval represented by the source that's selected
 		new_update_interval = int(source.get_label().split()[0])
-
-		print "refresh time interval changed to -", new_update_interval
 
 		# update the update_interval value with the new one
 		self.update_interval = new_update_interval
@@ -216,7 +213,7 @@ class InternetCheck:
 	"""
 	def exit_indicator(self, source):
 		gtk.main_quit()
-		self.show_notification("Internet Check", "Exiting the app-indicator.", 3000)
+		self.show_notification("Internet Check", "Exiting the app-indicator.")
 
 
 	"""
