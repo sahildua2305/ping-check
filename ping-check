@@ -3,15 +3,15 @@
 import subprocess, re, shlex
 import appindicator, glib, gtk, requests, signal, time, pynotify, threading, gobject
 
-APPINDICATOR_ID = 'internet-check'
-PYNOTIFY_ID = 'internet-check'
+APPINDICATOR_ID = 'ping-check'
+PYNOTIFY_ID = 'ping-check'
 ping_host_name = "google.com"
 
 
 """
-InternetCheck class - main class implementing the entire app-indicator
+PingCheck class - main class implementing the entire app-indicator
 """
-class InternetCheck:
+class PingCheck:
 
 	"""
 	Class constructor
@@ -40,7 +40,7 @@ class InternetCheck:
 
 		self.ping_paused = False
 
-		self.show_notification("Internet Check", "Now tracking the ping continuously! You can pause the tracking from the menu.")
+		self.show_notification("Ping Check", "Now tracking the ping continuously! You can pause the tracking from the menu.")
 		self.indicator.set_icon( gtk.STOCK_NO )
 		self.indicator.set_label( "--" )
 
@@ -55,7 +55,7 @@ class InternetCheck:
 		self.menu = gtk.Menu()
 
 		# create a menu item for showing about indicator section
-		item_about = gtk.MenuItem("Internet Check Indicator")
+		item_about = gtk.MenuItem("Ping Check Indicator")
 		self.menu.append( item_about )
 
 		# create menu item for adjusting the ping refresh time
@@ -168,7 +168,7 @@ class InternetCheck:
 			self.ping_paused = False
 			self.indicator.set_label("Resuming...")
 			source.set_label("Pause")
-			self.show_notification("Internet Check", "Ping checking has been resumed!")
+			self.show_notification("Ping Check", "Ping checking has been resumed!")
 			self.update_ui()
 		# click on pause
 		else:
@@ -176,7 +176,7 @@ class InternetCheck:
 			curr_label = self.indicator.get_label()
 			self.indicator.set_label(curr_label + "(Paused)")
 			source.set_label("Resume")
-			self.show_notification("Internet Check", "Ping checking has been paused!")
+			self.show_notification("Ping Check", "Ping checking has been paused!")
 
 
 	"""
@@ -213,7 +213,7 @@ class InternetCheck:
 	"""
 	def exit_indicator(self, source):
 		gtk.main_quit()
-		self.show_notification("Internet Check", "Exiting the app-indicator.")
+		self.show_notification("Ping Check", "Exiting the app-indicator.")
 
 
 	"""
@@ -226,5 +226,5 @@ class InternetCheck:
 if __name__ == "__main__":
 	# For making Ctrl+C do it's default action
 	signal.signal(signal.SIGINT, signal.SIG_DFL)
-	indicator = InternetCheck()
+	indicator = PingCheck()
 	indicator.main()
