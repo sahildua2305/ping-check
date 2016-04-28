@@ -1,5 +1,5 @@
-# Internet Check (ping) Indicator
-App Indicator that keeps pinging a particular server and shows the ping status in menu bar so that you never have to manually check for ping status..
+# Ping Check Indicator
+App Indicator that keeps pinging a particular server and shows the ping status in menu bar so that you never have to manually check for ping status.
 
 ## Features:
  * Pause/resume the ping check operation
@@ -9,11 +9,11 @@ App Indicator that keeps pinging a particular server and shows the ping status i
 
 To run in the terminal:
 
-`python internet-check`
+`python ping-check`
 
 To run in background:
 
-`python internet-check &`
+`python ping-check &`
 
 
 ###Indicator when connection is up and internet is working.
