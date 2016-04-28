@@ -1,3 +1,21 @@
+ping-check (1.03-trusty0) trusty; urgency=medium
+
+  * Third update before launch
+
+ -- Sahil Dua <sahildua2305@gmail.com>  Fri, 29 Apr 2016 01:26:12 +0530
+
+ping-check (1.02-trusty0) trusty; urgency=medium
+
+  * Second update before launch
+
+ -- Sahil Dua <sahildua2305@gmail.com>  Fri, 29 Apr 2016 01:21:24 +0530
+
+ping-check (1.01-trusty0) trusty; urgency=medium
+
+  * Update before launch 
+
+ -- Sahil Dua <sahildua2305@gmail.com>  Fri, 29 Apr 2016 01:13:30 +0530
+
 ping-check (1.0-trusty0) trusty; urgency=medium
 
   * Initial release

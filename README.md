@@ -5,15 +5,17 @@ App Indicator that keeps pinging a particular server and shows the ping status i
  * Pause/resume the ping check operation
  * Adjust the ping check time interval
 
-## How to run:
+## Usage:
 
-To run in the terminal:
-
-`python ping-check`
-
-To run in background:
-
+`git clone https://github.com/sahildua2305/ping-check.git`
+`cd ping-check`
 `python ping-check &`
+
+## PPA
+
+`sudo add-apt-repository ppa:sahildua2305/ping-check`
+`sudo apt-get update`
+`sudo apt-get install ping-check`
 
 
 ###Indicator when connection is up and internet is working.
