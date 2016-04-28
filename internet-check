@@ -59,18 +59,26 @@ class InternetCheck:
 		# create menu item for adjusting the ping refresh time
 		item_refresh_control = gtk.MenuItem("Adjust refresh time")
 		self.menu_refresh_control = gtk.Menu()
-		subitem_1 = gtk.MenuItem("5 seconds")
+		subitem_1 = gtk.RadioMenuItem(None, "5 seconds")
 		subitem_1.connect('activate', self.adjust_update_interval)
 		self.menu_refresh_control.append(subitem_1)
-		subitem_2 = gtk.MenuItem("10 seconds")
+		group = subitem_1.get_group()
+		print group
+		subitem_2 = gtk.RadioMenuItem(group[0], "10 seconds")
 		subitem_2.connect('activate', self.adjust_update_interval)
 		self.menu_refresh_control.append(subitem_2)
-		subitem_3 = gtk.MenuItem("20 seconds")
+		group = subitem_2.get_group()
+		print group
+		subitem_3 = gtk.RadioMenuItem(group[0], "20 seconds")
 		subitem_3.connect('activate', self.adjust_update_interval)
 		self.menu_refresh_control.append(subitem_3)
-		subitem_4 = gtk.MenuItem("30 seconds")
+		group = subitem_3.get_group()
+		print group
+		subitem_4 = gtk.RadioMenuItem(group[0], "30 seconds")
 		subitem_4.connect('activate', self.adjust_update_interval)
 		self.menu_refresh_control.append(subitem_4)
+		group = subitem_4.get_group()
+		print group
 		item_refresh_control.set_submenu(self.menu_refresh_control)
 		self.menu.append(item_refresh_control)
 
