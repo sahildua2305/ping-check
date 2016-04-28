@@ -1,0 +1,16 @@
+Source: ping-check
+Section: gnome
+Priority: extra
+Maintainer: Sahil Dua <sahildua2305@gmail.com>
+Standards-Version: 3.9.5
+Build-Depends: debhelper (>= 7)
+Homepage: https://launchpad.net/~sahildua2305/+archive/ubuntu/ping-check
+
+Package: ping-check
+Architecture: any
+Depends: ${misc:Depends},
+	${shlibs:Depends}
+Description: App Indicator that keeps pinging a 
+	particular server and shows the ping status 
+	in menu bar so that you never have to manually 
+	check for ping status.
