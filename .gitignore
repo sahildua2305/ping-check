@@ -1,1 +1,5 @@
 .bzr/
+debian/ping-check.debhelper.log
+debian/ping-check.substvars
+debian/ping-check/
+debian/files

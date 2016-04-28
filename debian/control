@@ -8,8 +8,7 @@ Homepage: https://launchpad.net/~sahildua2305/+archive/ubuntu/ping-check
 
 Package: ping-check
 Architecture: any
-Depends: ${misc:Depends},
-	${shlibs:Depends}
+Depends: ${python:Depends}
 Description: App Indicator that keeps pinging a 
 	particular server and shows the ping status 
 	in menu bar so that you never have to manually 
