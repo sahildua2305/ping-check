@@ -62,41 +62,14 @@ class PingCheck:
 		item_refresh_control = gtk.MenuItem("Adjust refresh time")
 		self.menu_refresh_control = gtk.Menu()
 		self.menu_refresh_control_items = []
-
 		group = [None]
 		time_interval_list = [5, 10, 20, 30]
-
 		for i in time_interval_list:
 			subitem = gtk.RadioMenuItem(group[0], str(i) + " seconds")
 			subitem.connect('activate', self.adjust_update_interval)
 			self.menu_refresh_control.append(subitem)
 			self.menu_refresh_control_items.append(subitem)
 			group = subitem.get_group()
-
-		# subitem_1 = gtk.RadioMenuItem(None, "5 seconds")
-		# subitem_1.connect('activate', self.adjust_update_interval)
-		# self.menu_refresh_control.append(subitem_1)
-		# self.menu_refresh_control_items.append(subitem_1)
-		# group = subitem_1.get_group()
-
-		# subitem_2 = gtk.RadioMenuItem(group[0], "10 seconds")
-		# subitem_2.connect('activate', self.adjust_update_interval)
-		# self.menu_refresh_control.append(subitem_2)
-		# self.menu_refresh_control_items.append(subitem_2)
-		# group = subitem_2.get_group()
-		
-		# subitem_3 = gtk.RadioMenuItem(group[0], "20 seconds")
-		# subitem_3.connect('activate', self.adjust_update_interval)
-		# self.menu_refresh_control.append(subitem_3)
-		# self.menu_refresh_control_items.append(subitem_3)
-		# group = subitem_3.get_group()
-		
-		# subitem_4 = gtk.RadioMenuItem(group[0], "30 seconds")
-		# subitem_4.connect('activate', self.adjust_update_interval)
-		# self.menu_refresh_control.append(subitem_4)
-		# self.menu_refresh_control_items.append(subitem_4)
-		# group = subitem_4.get_group()
-		
 		item_refresh_control.set_submenu(self.menu_refresh_control)
 		self.menu.append(item_refresh_control)
 
